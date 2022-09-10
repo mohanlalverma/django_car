@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container border mt-4">
+    <div class="row">
+        <table class="table mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">Car</th>
+                    <th scope="col">Category</th>
+                    <th>
+                        <a href="{% url 'insert' %}" class="btn btn-outline-success">Add New</a>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <th scope="row">{{car.id}}</th>
+                    <td>{{car.name}}</td>
+                    <td>{{car.category}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{% url 'update' car.id %}">update</a>
+                        <form action="{% url 'delete' car.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+            
+                    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
